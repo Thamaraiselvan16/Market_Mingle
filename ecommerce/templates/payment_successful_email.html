@@ -1,0 +1,20 @@
+{% autoescape off %}
+
+Payment Successful
+
+Hello {{ order.name }},
+
+We are pleased to inform you that your payment for order {{ order.oid }} has been successfully processed.
+
+Order Details:
+Order Id: {{ order.oid }}
+Name: {{ order.name }}
+Email: {{ order.email }}
+Amount: {{ order.amount }}
+
+Thank you for shopping with us!
+
+Continue Your shopping
+
+http://127.0.0.1:2000/
+{% endautoescape %}

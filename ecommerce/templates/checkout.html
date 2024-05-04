@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Check Out {% endblock title %}
+
+{% block content %}
+<section id="hero" style="width: 100%; height: 90vh; background-image: url('{% static 'images/money.jpg' %}'); background-position: top center; background-size: cover; position: relative;">
+  <div class="hero-container">
+    <h1>Checkout</h1>
+  </div>
+</section>
+{% endblock content %}
+
+{% block body %}
+{% load static %}
+
+<section id="portfolio" class="portfolio">
+  <div class="container">
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+      <strong>{{message}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+
+    {% comment %} <div class="section-title">
+      <h3>Checkout Page</h3>
+    </div> {% endcomment %}
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title text-center">Your Cart</h2>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Item</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Total Price</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cartTableBody">
+                    <!-- Cart items will be dynamically inserted here -->
+                  </tbody>
+                  <tr>
+                    <td colspan="2"></td>
+                    <td class="text-right"><b>Total:</b></td>
+                    <td><b><span id="totalprice"></span></b></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="margin-top:20px">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title text-center">Enter Address & Other Details to Buy:</h2>
+              <form id="checkoutForm" method="post" action="/checkout/" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <input type="hidden" name="itemsJson" id="itemsJson" />
+                <input type="hidden" id="amt" name="amt" />
+                <div class="mb-3">
+                  <label for="inputname" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Name" required />
+                  <div class="invalid-feedback">
+                    Please enter your name.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputEmail4" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{user.email}}" required />
+                  <div class="invalid-feedback">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputAddress" class="form-label">Address</label>
+                  <input type="text" class="form-control" id="address1" name="address1" placeholder="1234 Main St" required />
+                  <div class="invalid-feedback">
+                    Please enter your address.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputAddress2" class="form-label">Address line 2</label>
+                  <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment, studio, or floor" required />
+                  <div class="invalid-feedback">
+                    Please enter your address line 2.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputCity" class="form-label">City</label>
+                  <input type="text" class="form-control" id="city" name="city" required />
+                  <div class="invalid-feedback">
+                    Please enter your city.
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="inputState" class="form-label">State</label>
+                    <input type="text" class="form-control" id="state" name="state" required />
+                    <div class="invalid-feedback">
+                      Please enter your state.
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="inputZip" class="form-label">Zip</label>
+                    <input type="text" class="form-control" id="zip_code" name="zip_code" required />
+                    <div class="invalid-feedback">
+                      Please enter your zip code.
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputPhone" class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="phone" name="phone" required />
+                  <div class="invalid-feedback">
+                    Please enter your phone number.
+                  </div>
+                </div>
+                <br />
+                <div class="mb-3 d-flex justify-content-center align-items-center">
+                  <button id="btn" type="submit" class="btn btn-success btn-block">Place Order</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script>
+  // Form validation
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      var forms = document.getElementsByClassName('needs-validation');
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+
+  if (localStorage.getItem('cart') == null) {
+    var cart = {};
+  } else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+  }
+
+  var sum = 0;
+  var totalPrice = 0;
+
+  if ($.isEmptyObject(cart)) {
+    //if object is empty
+    mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+    $('#cartTableBody').append(mystr);
+  } else {
+    for (item in cart) {
+      let name = cart[item][1];
+      let qty = cart[item][0];
+      let itemPrice = cart[item][2];
+      sum = sum + qty;
+      totalPrice = totalPrice + qty * itemPrice;
+
+      let row = `<tr>
+                  <td>${name}</td>
+                  <td>${qty}</td>
+                  <td>${itemPrice}</td>
+                  <td>${qty * itemPrice}</td>
+                </tr>`;
+      $('#cartTableBody').append(row);
+    }
+  }
+
+  document.getElementById('totalprice').innerHTML = totalPrice;
+  $('#itemsJson').val(JSON.stringify(cart));
+
+  {% if thank %}
+  alert('Thanks for ordering with us. Your order is is {{id}}. Use it to track your order using our order tracker');
+  localStorage.clear();
+  document.location = "/";
+  {% endif %}
+
+  document.getElementById("amt").value = totalPrice;
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+
+{% endblock body %}

@@ -1,0 +1,383 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>{% block title %}Market Mingle{% endblock title %}</title>
+  <meta content="ecommerce website we deliver products in 1 hour" name="description">
+  <meta content="amazon, flipkart, selling, products" name="keywords">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="{% static '/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static '/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- Template Main CSS File -->
+
+  <link href="{% static '/assets/css/style.css' %}" rel="stylesheet">
+  <style>
+    /* Common style for navigation links */
+    .nav-link {
+      display: inline-block;
+      text-decoration: none;
+      color: #333;
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+    }
+    
+    /* Style for icon */
+    .nav-link i {
+      margin-left: 5px;
+    }
+    
+
+
+    /* Responsive styles */
+    @media screen and (max-width: 768px) {
+      .nav-link {
+        display: block;
+        padding: 10px 0;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+ <!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+  <div class="container d-flex align-items-center justify-content-between">
+
+    <!-- Logo -->
+    <div class="logo">
+      <a href="/">
+        {% comment %} <img src="{% static 'images/LOGO1.png' %}" alt="Market Mingle" class="img-fluid"> {% endcomment %}
+        <img src="{% static 'images/mm.png' %}" alt="Market Mingle" class="img-fluid">
+      </a>
+    </div>
+    <a href="/" style="text-decoration: none;">
+      <h3 style="text-align: center; margin-top: 5px; letter-spacing: 2px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        <span style="color: #22bf76;">M</span><span style="color: #ffffff;">arket</span>
+        <span style="color: #22bf76;">M</span><span style="color: #ffffff;">inggle</span>
+      </h3>
+    </a>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+      
+      
+      <ul>
+
+        <!-- Home -->
+        <li><a class="nav-link scrollto active" href="/">Home  <i class="fas fa-home"  style="color:#22bf76"></i></a></li>
+{% comment %} 
+        <!-- Dropdown with Mega Menu -->
+        <li class="dropdown">
+          <a href="#">Categories</a>
+          <ul class="dropdown-menu mega-menu">
+            <li class="mega-menu-column">
+              <ul>
+                <li><a href="#">hi</a></li>
+                <li><a href="#">Category 2</a></li>
+                <li><a href="#">Category 3</a></li>
+                <!-- Add more categories as needed -->
+              </ul>
+            </li>
+            <li class="mega-menu-column">
+              <ul>
+                <li><a href="#">hello</a></li>
+                <li><a href="#">Category 5</a></li>
+                <li><a href="#">Category 6</a></li>
+                <!-- Add more categories as needed -->
+              </ul>
+            </li>
+          </ul>
+        </li> {% endcomment %}
+
+        
+
+        <!-- Profile and Cart -->
+        <li>
+          <a class="nav-link scrollto" href="/checkout">Checkout <i class="fas fa-credit-card" style="color:#22bf76"></i></a>
+        </li>
+        <li>
+          <a class="nav-link scrollto" href="/profile">My Orders <i class="fas fa-user" style="color:#22bf76"></i></a>
+        </li>
+        <li>
+          <span id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" style="cursor:pointer; color:#e43c5c ;" class="nav-link"><b>Cart</b> <i class="fas fa-shopping-cart" style="color:#22bf76"></i> <sup id="cart" style="color:white">0</sup></span>
+        </li>
+
+        <!-- Search Form -->
+        <li>
+          <form action="{% url 'search' %}" method="get" class="search-form-sm">
+            <div class="input-group">
+              <input type="text" class="form-control" name="q" placeholder="Search..." style="color:#22bf76">
+              <button type="submit" class="btn btn-outline-light" style="color:#22bf76"> <i class="fas fa-search"></i></button>
+            </div>
+          </form>
+        </li>
+        
+
+        <!-- Contact and Sign In/Sign Up -->
+        <li><a href="/contact">Contact <i class="fas fa-envelope" style="color:#22bf76"></i></a></li>
+        {% if request.user.is_authenticated %}
+        <li><a class="nav-link scrollto" href="/auth/logout/" style="cursor:pointer;">Logout <i class="fas fa-sign-out-alt" style="color:#22bf76"></i></a></li>
+        {% else %}
+        <li class="dropdown">
+          <a href="#">Sign In <i class="fas fa-user" style="color:#22bf76"></i></a>
+          <ul>
+            <li><a href="/auth/signup/" style="cursor:pointer;">Sign Up <i class="fas fa-user-plus" style="color:#22bf76"></i></a></li>
+            <li><a href="/auth/login/" style="cursor:pointer;">Login <i class="fas fa-sign-in-alt"style="color:#22bf76" ></i></a></li>
+          </ul>
+        </li>
+        {% endif %}
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav>
+  </div>
+</header>
+<!-- End Header -->
+
+  {% block content %} {% endblock content %}
+
+    <main id="main">{% block body %} {% endblock body %}</main>
+    <!-- End #main -->
+
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>Market Mingle</h3>
+              <p>
+                Xyz Street <br />
+                Xyz State, 000000<br />
+                Xyz Country <br /><br />
+                <strong>Phone:</strong> +91-123456789<br />
+                <strong>Email:</strong> tthamaraiselvan2002@gmail.com<br />
+              </p>
+            </div>
+
+            <div class="col-lg-2 col-md-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="/">Home</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="/checkout">Checkout</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="/profile">My Orders</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="/checkout">Cart</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="/contact">Contact</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="/auth/signup/">Create Account</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Services</h4>
+              <ul>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="#">Web Design</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#">Web Development</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#">Python Development</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="#">Front-end</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="#">Back-end</a>
+                </li>
+              </ul>
+            </div>
+
+            {% comment %}
+            <div class="col-lg-4 col-md-6 footer-newsletter">
+              <h4>Join Our Newsletter</h4>
+              <p>
+                Tamen quem nulla quae legam multos aute sint culpa legam noster
+                magna
+              </p>
+              <form action="" method="post">
+                <input type="email" name="email" /><input
+                  type="submit"
+                  value="Subscribe"
+                />
+              </form>
+            </div>
+            {% endcomment %}
+          </div>
+        </div>
+      </div>
+
+      <div class="container d-md-flex py-4">
+        <div class="me-md-auto text-center text-md-start">
+          <div class="copyright">
+            &copy; Copyright <strong><span>Market Mingle</span></strong
+            >. All Rights Reserved
+          </div>
+        </div>
+        {% comment %}
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+        {% endcomment %}
+      </div>
+    </footer>
+
+    <!-- ======= Footer ======= -->
+    {% comment %}
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>Tempo</h3>
+              <p>
+                A108 Adam Street <br />
+                New York, NY 535022<br />
+                United States <br /><br />
+                <strong>Phone:</strong> +1 5589 55488 55<br />
+                <strong>Email:</strong> info@example.com<br />
+              </p>
+            </div>
+
+            <div class="col-lg-2 col-md-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="/">Home</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="/about">About us</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="#">Services</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#">Terms of service</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#">Privacy policy</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Services</h4>
+              <ul>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="#">Web Design</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#">Web Development</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#">Product Management</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="#">Marketing</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#">Graphic Design</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-6 footer-newsletter">
+              <h4>Join Our Newsletter</h4>
+              <p>
+                Tamen quem nulla quae legam multos aute sint culpa legam noster
+                magna
+              </p>
+              <form action="" method="post">
+                <input type="email" name="email" /><input
+                  type="submit"
+                  value="Subscribe"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container d-md-flex py-4">
+        <div class="me-md-auto text-center text-md-start">
+          <div class="copyright">
+            &copy; Copyright <strong><span>Tempo</span></strong
+            >. All Rights Reserved
+          </div>
+          <div class="credits">
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+    {% endcomment %}
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static '/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static '/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static '/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static '/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static '/assets/vendor/php-email-form/validate.js' %}"></script>
+
+    <!-- Template Main JS File -->
+    <script src="{% static '/assets/js/main.js' %}"></script>
+    <script>
+      // Get the cart value element
+      var cartValue = document.getElementById("cart");
+    
+      // Check if the cart value is 0
+      if (parseInt(cartValue.textContent) === 0) {
+        // If cart value is 0, replace it with "no"
+        cartValue.textContent = " ";
+      }
+    </script>
+    
+</body>
+</html>

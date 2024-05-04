@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Payment Status{% endblock title %}
+{% load static %}
+{% block content %}
+<section id="hero" style="width: 100%; height: 30vh; background-image: url('{% static 'images/dot.png' %}'); background-position: top center; background-size: cover; position: relative;">
+  <div class="hero-container" style="margin-top:10%;">  
+    <h1>Payment Status</h1>
+  </div>
+</section>
+{% endblock content %}
+
+{% block body %}
+<div class="container mt-4" style="margin-bottom:20px">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Payment Status</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center">
+                            <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
+                        </div>
+                        <div class="col-md-8">
+                            <p style="color: #2ecc71;"><strong>Status:</strong> Payment successful!</p>
+                            {% comment %} <p class="mb-3">Payment status regarding your order</p> {% endcomment %}
+                            <p><strong>Order Id:</strong> {{ order.oid }}</p>
+                            <p><strong>Payment ID:</strong> {{ response.razorpay_payment_id }}</p>
+                            <p><strong>Amount:</strong> Rs: {{ order.amount }}</p>
+                        </div>
+                        <div class="col-md-12 text-center mt-4">
+                            <a href="/" class="btn btn-success mx-1 btn-sm">Continue Shopping</a>
+                            <a href="/profile" class="btn btn-success mx-1 btn-sm">Track Order</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

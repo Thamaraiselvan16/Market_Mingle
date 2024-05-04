@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Orders{% endblock title %}
+
+{% block content %}
+<section id="hero" style="width: 100%; height: 90vh; background-image: url('{% static 'images/delivery.png' %}'); background-position: top center; background-size: cover; position: relative;">
+  <div class="hero-container">  
+    <h1>My Orders</h1>
+  </div>
+</section>
+{% endblock content %}
+
+{% block body %}
+<section id="portfolio" class="portfolio">
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table" style="border-collapse: collapse; width: 100%; outline: 2px solid black;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #000;">
+                        <th scope="col" style="padding: 8px;">Order ID</th>
+                        <th scope="col" style="padding: 8px;">Name</th>
+                        <th scope="col" style="padding: 8px;">Products</th>
+                        <th scope="col" style="padding: 8px;">Amount Paid</th>
+                        <th scope="col" style="padding: 8px;">Payment Status</th>
+                        <th scope="col" style="padding: 8px;">Address</th>
+                        <th scope="col" style="padding: 8px;">Phone Number</th>
+                        <th scope="col" style="padding: 8px;">Delivery Status</th>
+                        <th scope="col" style="padding: 8px;">Delivered</th>
+                        {% comment %} <th scope="col" style="padding: 8px;">Date</th> {% endcomment %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in items %}
+                    <tr style="border-bottom: 1px solid #000;">
+                        <td style="padding: 8px;">{{ order.oid }}</td>
+                        <td style="padding: 8px;">{{ order.name }}</td>
+                        <td style="padding: 8px;">{{ order.items_json }}</td>
+                        <td style="padding: 8px;">{{ order.amount }}</td>
+                        {% comment %} <td style="padding: 8px;">{{ order.paymentstatus }}</td> {% endcomment %}
+                        <td style="padding: 8px;"><i class="fas fa-check-circle fa-1x text-success mb-3"></i></td>
+                        <td style="padding: 8px;">{{ order.address1 }} {{ order.address2 }}</td>
+                        <td style="padding: 8px;">{{ order.phone }}</td>
+                        <td style="padding: 8px;">
+                                <i class="fa-solid fa-truck"></i> Not Delivered
+                        </td>
+                        <td style="padding: 8px;">
+                            <i class="fas fa-times-circle fa-1x text-danger mb-3"></i>
+                        </td>
+                        
+                        {% comment %} <td style="padding: 8px;">
+                            {% for update in order.orderupdate_set.all %}
+                                {{ update.update_desc }} <br>
+                            {% endfor %}
+                        </td>
+                        <td style="padding: 8px;">
+                            {% if update.delivered %}
+                                <i class="fa-solid fa-circle-check"></i> Delivered
+                            {% else %}
+                                <i class="fa-solid fa-truck"></i> Not Delivered
+                            {% endif %}
+                        </td> {% endcomment %}
+                        {% comment %} <td style="padding: 8px;">{{ update.timestamp }}</td> {% endcomment %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock body %}

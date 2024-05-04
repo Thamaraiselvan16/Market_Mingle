@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact Us{% endblock title %} {%
+load static %} {% block content %}
+<section
+  id="hero"
+  style="
+    width: 100%;
+    height: 30vh;
+    background-image: url('{% static 'images/dot.png' %}');
+    background-position: top center;
+    background-size: cover;
+    position: relative;
+  "
+>
+  <div class="hero-container" style="margin-top: 10%">
+    <h1>Contact Us</h1>
+  </div>
+</section>
+{% endblock content %} {% block body %} {% comment %}
+<h1 class="text-center">Contact Us</h1>
+{% endcomment %}
+
+<div class="container mt-4">
+  {% for message in messages %}
+  <div
+    class="alert alert-{{ message.tags }} alert-dismissible fade show"
+    role="alert"
+  >
+    <strong>{{ message }}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {% endfor %}
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <form action="/contact" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                value="{{ user.email }}"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="desc" class="form-label">How Can I Help You?</label>
+              <textarea
+                class="form-control"
+                id="desc"
+                name="desc"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="pnumber" class="form-label">Phone Number</label>
+              <input
+                type="number"
+                class="form-control"
+                id="pnumber"
+                name="pnumber"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="profile-pic" class="form-label"
+                >Error picture</label
+              >
+              <input
+                type="file"
+                class="form-control"
+                id="profile-pic"
+                name="profile-pic"
+              />
+            </div>
+            <div style="display: flex; justify-content: center">
+              <button type="submit" class="btn btn-dark">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}

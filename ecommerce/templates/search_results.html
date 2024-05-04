@@ -1,0 +1,45 @@
+<!-- search_result.html -->
+{% extends 'base.html' %}
+{% block title %}
+Search Results
+{% endblock title %} 
+
+
+{% load static %}
+{% block content %}
+<section id="hero" style="width: 100%; height: 30vh; background-image: url('{% static 'images/dot.png' %}'); background-position: top center; background-size: cover; position: relative;">
+  <div class="hero-container" style="margin-top:10%;">  
+    <h1>Search Results</h1>
+  </div>
+</section>
+{% endblock content %}
+
+{% block body %}
+<div class="container">
+  <div class="section-title">
+    {% comment %} <h3>Search Results</h3> {% endcomment %}
+  </div>
+
+  {% if results %}
+  <div class="row" style="margin-bottom:20px">
+    {% for product in results %}
+    <div class="col-md-3 mt-3">
+      <div class="card" style="width: 100%; height: 100%;">
+        <a href="{% url 'product_detail' product.id %}" style="display: flex; justify-content: center; align-items: center;">
+          <img src="{{ product.image.url }}" class="card-img-top" alt="not found" style="object-fit: cover; height: 300px; width: 80%;" />
+        </a>
+        <div class="card-body">
+          <h5 class="card-title mt-2">{{ product.product_name }}</h5>
+          <p class="card-text">{{ product.desc|slice:"0:53" }}...</p>
+          <h6 class="card-title mb-3">Price: {{ product.price }}</h6>
+          <button id="pr{{ product.id }}" class="btn btn-danger cart btn-sm mt-0">Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>No results found.</p>
+  {% endif %}
+</div>
+{% endblock body %}

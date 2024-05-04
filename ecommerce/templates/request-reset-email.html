@@ -1,0 +1,51 @@
+{% extends 'base.html' %} 
+{% block title %}Reset Password{% endblock title %} 
+{% load static %}
+
+
+
+{% block content %}
+<section id="hero" style="width: 100%; height: 30vh; background-image: url('{% static 'images/dot.png' %}'); background-position: top center; background-size: cover; position: relative;">
+  <div class="hero-container" style="margin-top:10%;">  
+    <h1>Request Reset Passward</h1>
+  </div>
+</section>
+{% endblock content %}
+{% block body %}
+
+<div class="container" style="margin-top:20px; margin-bottom:20px">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card bg-light p-5">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          <strong>{{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        
+        {% comment %} <h3 class="text-dark">Request a Reset Link</h3> {% endcomment %}
+
+        <form action="/auth/request-reset-email/" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div style="display: flex; justify-content: center">
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+          
+          </div>
+          {% comment %} <a href="/" class="btn btn-link">Go Back</a> {% endcomment %}
+        </form>
+        <hr>
+        <p class="text-center">
+          <a href="/auth/login/">Go back?</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

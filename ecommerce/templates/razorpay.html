@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Payment{% endblock title %}
+{% load static %}
+{% block content %}
+<section id="hero" style="width: 100%; height: 30vh; background-image: url('{% static 'images/dot.png' %}'); background-position: top center; background-size: cover; position: relative;">
+  <div class="hero-container" style="margin-top:10%;">  
+    <h1>Payment</h1>
+  </div>
+</section>
+{% endblock content %}
+
+{% block body %}
+<div class="payment-form-container" style="display: flex; justify-content: center; align-items: center; height: 20vh;">
+  <form action="/handlerequest/" method="POST" class="payment-form" style="text-align: center;">
+    {% csrf_token %}
+    <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="rzp_test_VcfYYWbvSUfKU4"
+            data-amount="{{ amount }}"
+            data-currency="INR"
+            data-order_id="{{ order_id }}"
+            data-name="Market Mingle"
+            data-description="Purchase Description"
+            data-image="{% static 'images/LOGO1.png' %}"
+            data-prefill.name="{{ name }}"
+            data-prefill.email="{{ email }}"
+            data-theme.color="#22bf76"
+    ></script>
+    <style>
+      .razorpay-payment-button {
+        display: none !important;
+      }
+    </style>
+    <input type="hidden" custom="Hidden Element" name="hidden">
+    <button type="submit" class="btn btn-success btn-lg mt-3">Proceed to Pay</button>
+  </form>
+</div>
+{% endblock body %}

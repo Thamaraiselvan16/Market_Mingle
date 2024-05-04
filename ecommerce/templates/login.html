@@ -1,0 +1,51 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}Login{% endblock title %} 
+
+{% block content %}
+<section id="hero" style="width: 100%; height: 30vh; background-image: url('{% static 'images/dot.png' %}'); background-position: top center; background-size: cover; position: relative;">
+  <div class="hero-container" style="margin-top:10%;">  
+    <h1>Login</h1>
+  </div>
+</section>
+{% endblock content %}
+
+{% block body %}
+<div class="container mt-5" style="margin-top:20px; margin-bottom:20px">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-8 col-sm-10">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          {% for message in messages %}
+          <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+          {% comment %} <h3 class="text-dark mb-4">Login</h3> {% endcomment %}
+          <form action="/auth/login/" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="pass1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="pass1" name="pass1" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">Login</button>
+            </div>
+          </form>
+          <div class="mt-3 text-center">
+            <span>Forget Password? <a href="/auth/request-reset-email/">Reset</a></span>
+          </div>
+          <div class="mt-3 text-center">
+            New User? <a href="/auth/signup/">Signup</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
