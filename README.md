@@ -71,6 +71,9 @@ Welcome to Market Mingle, an eCommerce project designed to provide a seamless on
     ```sh
     cd ecommerce
     python manage.py runserver
+    or
+    python manage.py runserver 2000
+
 
 
     ```
