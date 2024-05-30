@@ -46,7 +46,7 @@ Welcome to Market Mingle, an eCommerce project designed to provide a seamless on
     ```sh
     pip install virtualenv
     python -m venv venv_name
-    source venv_name\Scripts\activate  # On Windows, use `venv_name/bin/activate`
+    source venv_name\Scripts\activate  # On mac, use `venv_name/bin/activate`
     ```
 
 3. **Install the required packages:**
